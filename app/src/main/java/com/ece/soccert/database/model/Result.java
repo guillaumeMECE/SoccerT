@@ -45,11 +45,11 @@ public class Result {
         return id;
     }
 
-    public Integer[] getScore() {
+    public Integer[] getScores() {
         return scores;
     }
 
-    public String[] getTeam() {
+    public String[] getTeams() {
         return teams;
     }
 
