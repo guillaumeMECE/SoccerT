@@ -1,8 +1,6 @@
 package com.ece.soccert.ui.results;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,20 +18,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-//package info.androidhive.sqlite.view;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MyViewHolder> {
 
     private Context context;
     private List<Result> resultsList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView team1;
-        public TextView team2;
-        public TextView scores;
+    static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView team1;
+        TextView team2;
+        TextView scores;
         //public TextView timestamp;
 
-        public MyViewHolder(View view) {
+        MyViewHolder(View view) {
             super(view);
             team1 = view.findViewById(R.id.team1);
             scores = view.findViewById(R.id.scores);
@@ -43,7 +40,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MyViewHo
     }
 
 
-    public ResultsAdapter(Context context, List<Result> resultsList) {
+    ResultsAdapter(Context context, List<Result> resultsList) {
         this.context = context;
         this.resultsList = resultsList;
     }

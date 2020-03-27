@@ -1,5 +1,6 @@
 package com.ece.soccert.ui.results;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,23 +22,22 @@ import com.ece.soccert.database.DatabaseHelper;
 import com.ece.soccert.database.model.Result;
 import com.ece.soccert.utils.MyDividerItemDecoration;
 import com.ece.soccert.utils.RecyclerTouchListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ResultsFragment extends Fragment {
 
     private ResultsAdapter mAdapter;
-    private ResultsViewModel resultsViewModel;
-    private RecyclerView recyclerView;
     private DatabaseHelper db;
     private List<Result> resultsList = new ArrayList<>();
     private TextView noResultsView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        resultsViewModel =
-                ViewModelProviders.of(this).get(ResultsViewModel.class);
+        ResultsViewModel resultsViewModel = ViewModelProviders.of(this).get(ResultsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_results, container, false);
         noResultsView = root.findViewById(R.id.text_home);
         resultsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -45,50 +46,67 @@ public class ResultsFragment extends Fragment {
                 noResultsView.setText(s);
             }
         });
-        recyclerView = root.findViewById(R.id.recycler_view);
+
+        RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         db = new DatabaseHelper(getActivity());
         resultsList.addAll(db.getAllResults());
         mAdapter = new ResultsAdapter(getActivity(), resultsList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
        // recyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
         createNote();
         toggleEmptyResults();
-        /**
-         * On long press on RecyclerView item, open alert dialog
-         * with options to choose
-         * Edit and Delete
-         * */
+
+        /*
+          On long press on RecyclerView item, open alert dialog
+          with options to choose
+          Edit and Delete
+          */
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
-                deleteResult(position);
+
             }
 
             @Override
-            public void onLongClick(View view, int position) {
-            }
+            public void onLongClick(View view, int position) {showActionsDialog(position); }
         }));
         return root;
     }
 
     /**
-     * Inserting new note in db
+     * Opens dialog with Delete options
+     * Delete
+     */
+    private void showActionsDialog(final int position) {
+        new MaterialAlertDialogBuilder(Objects.requireNonNull(getActivity()))
+                .setTitle(R.string.deleteResultAlertBox)
+                .setPositiveButton(R.string.deleteResultAlertBoxBtn, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                            deleteResult(position);
+                    }
+                })
+                .show();
+    }
+
+    /**
+     * Inserting new result in db
      * and refreshing the list
      */
     private void createNote() {
-        // inserting note in db and getting
-        // newly inserted note id
+        // inserting result in db and getting
+        // newly inserted result id
        long id = db.insertResult(new String[]{"PSG", "OL"}, new Integer[]{2, 1});
 
-        // get the newly inserted note from db
+        // get the newly inserted result from db
         Result r = db.getResult(id);
 
         if (r != null) {
-            // adding new note to array list at 0 position
+            // adding new result to array list at 0 position
             resultsList.add(0, r);
 
             // refreshing the list
@@ -106,7 +124,7 @@ public class ResultsFragment extends Fragment {
         // deleting the note from db
         db.deleteResult(resultsList.get(position));
 
-        // removing the note from the list
+        // removing the result from the list
         resultsList.remove(position);
         mAdapter.notifyItemRemoved(position);
 
@@ -114,7 +132,6 @@ public class ResultsFragment extends Fragment {
     }
 
     private void toggleEmptyResults() {
-        // you can check notesList.size() > 0
 
         if (db.getResultsCount() > 0) {
             noResultsView.setVisibility(View.GONE);

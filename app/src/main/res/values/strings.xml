@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SoccerT</string>
     <string name="title_results">Results</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
+    <string name="deleteResultAlertBox">Delete the match</string>
+    <string name="deleteResultAlertBoxBtn">Delete</string>
 </resources>
