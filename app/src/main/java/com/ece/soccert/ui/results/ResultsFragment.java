@@ -11,12 +11,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ece.soccert.R;
 import com.ece.soccert.database.DatabaseHelper;
 import com.ece.soccert.database.model.Result;
+import com.ece.soccert.utils.MyDividerItemDecoration;
+import com.ece.soccert.utils.RecyclerTouchListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +49,68 @@ public class ResultsFragment extends Fragment {
         db = new DatabaseHelper(getActivity());
         resultsList.addAll(db.getAllResults());
         mAdapter = new ResultsAdapter(getActivity(), resultsList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+       // recyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
+        createNote();
         toggleEmptyResults();
+        /**
+         * On long press on RecyclerView item, open alert dialog
+         * with options to choose
+         * Edit and Delete
+         * */
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
+                recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+                deleteResult(position);
+            }
 
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
         return root;
+    }
+
+    /**
+     * Inserting new note in db
+     * and refreshing the list
+     */
+    private void createNote() {
+        // inserting note in db and getting
+        // newly inserted note id
+       long id = db.insertResult(new String[]{"PSG", "OL"}, new Integer[]{2, 1});
+
+        // get the newly inserted note from db
+        Result r = db.getResult(id);
+
+        if (r != null) {
+            // adding new note to array list at 0 position
+            resultsList.add(0, r);
+
+            // refreshing the list
+            mAdapter.notifyDataSetChanged();
+
+            toggleEmptyResults();
+        }
+    }
+
+    /**
+     * Deleting note from SQLite and removing the
+     * item from the list by its position
+     */
+    private void deleteResult(int position) {
+        // deleting the note from db
+        db.deleteResult(resultsList.get(position));
+
+        // removing the note from the list
+        resultsList.remove(position);
+        mAdapter.notifyItemRemoved(position);
+
+        toggleEmptyResults();
     }
 
     private void toggleEmptyResults() {

@@ -47,11 +47,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertResult(String[] teams,Integer[] scores) {
-        long[] resultTeams = insertTeams(teams);
+    public long insertResult(String[] teams,Integer[] scores) {
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        // `id` and `timestamp` will be inserted automatically.
+        // no need to add them
+        values.put(Result.COLUMN_TEAM1, teams[0]);
+        values.put(Result.COLUMN_TEAM2, teams[1]);
+        values.put(Result.COLUMN_SCORET1, scores[0]);
+        values.put(Result.COLUMN_SCORET2, scores[1]);
+
+        // insert row
+        long id = db.insert(Result.TABLE_NAME, null, values);
+
+        // close db connection
+        db.close();
+
+        // return newly inserted row id
+        return id;
+       /* long[] resultTeams = insertTeams(teams);
         Log.d("DB", "insertResult/insertTeams: "+ Arrays.toString(resultTeams));
         long[] resultScores = insertScores(scores);
-        Log.d("DB", "insertResult/insertScores: "+ Arrays.toString(resultScores));
+        Log.d("DB", "insertResult/insertScores: "+ Arrays.toString(resultScores));*/
     }
 
     public long[] insertTeams(String[] teams) {
@@ -185,7 +204,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(note.getId())});
     }*/
 
-    public void deleteNote(Result result) {
+    public void deleteResult(Result result) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Result.TABLE_NAME, Result.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(result.getId())});
