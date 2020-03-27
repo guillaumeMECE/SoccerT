@@ -1,6 +1,8 @@
 package com.ece.soccert.ui.results;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ece.soccert.R;
 import com.ece.soccert.database.model.Result;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,14 +32,14 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MyViewHo
         TextView team1;
         TextView team2;
         TextView scores;
-        //public TextView timestamp;
+        public TextView timestamp;
 
         MyViewHolder(View view) {
             super(view);
             team1 = view.findViewById(R.id.team1);
             scores = view.findViewById(R.id.scores);
             team2 = view.findViewById(R.id.team2);
-           // timestamp = view.findViewById(R.id.timestamp);
+            timestamp = view.findViewById(R.id.date);
         }
     }
 
@@ -50,10 +54,14 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MyViewHo
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.result_list_row, parent, false);
-
         return new MyViewHolder(itemView);
     }
 
+    /**
+     * Apply value to the layout
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Result result = resultsList.get(position);
@@ -61,13 +69,14 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MyViewHo
         holder.scores.setText(result.getScores()[0]+" - "+result.getScores()[1]);
         holder.team2.setText(result.getTeams()[1]);
 
-        // Displaying dot from HTML character code
-        //holder.dot.setText(Html.fromHtml("&#8226;"));
-
         // Formatting and displaying timestamp
-        //holder.timestamp.setText(formatDate(result.getTimestamp()));
+        holder.timestamp.setText(formatDate(result.getTimestamp()));
     }
 
+    /**
+     * Number of item in recyclerview
+     * @return
+     */
     @Override
     public int getItemCount() {
         return resultsList.size();
@@ -80,9 +89,10 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MyViewHo
      */
     private String formatDate(String dateStr) {
         try {
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRANCE);
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Log.d("TAG", "formatDate: "+dateStr);
             Date date = fmt.parse(dateStr);
-            SimpleDateFormat fmtOut = new SimpleDateFormat("MMM d",Locale.FRANCE);
+            SimpleDateFormat fmtOut = new SimpleDateFormat("MMM d");
             return fmtOut.format(date);
         } catch (ParseException e) {
 

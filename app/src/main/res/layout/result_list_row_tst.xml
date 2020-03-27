@@ -24,12 +24,8 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
             android:text="TextView"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp" />
+            android:textColor="@color/colorPrimary" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -39,6 +35,7 @@
             android:padding="16dp">
 
             <!-- Title, secondary and supporting text -->
+
             <TextView
                 android:id="@+id/team1"
                 android:layout_width="wrap_content"

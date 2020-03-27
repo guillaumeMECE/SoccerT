@@ -1,7 +1,8 @@
-package com.ece.soccert;
+package com.ece.soccert.view;
 
 import android.os.Bundle;
 
+import com.ece.soccert.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;

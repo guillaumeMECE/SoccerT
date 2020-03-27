@@ -5,4 +5,8 @@
     <string name="title_notifications" translatable="false">Notifications</string>
     <string name="deleteResultAlertBox">Delete the match</string>
     <string name="deleteResultAlertBoxBtn">Delete</string>
+    <string name="tab_a_label">" Highligths"</string>
+    <string name="tab_b_label">stats</string>
+    <string name="tab_c_label">unknow</string>
+    <string name="team_stats">TEAM STATS</string>
 </resources>

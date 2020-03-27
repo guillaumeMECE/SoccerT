@@ -1,6 +1,7 @@
 package com.ece.soccert.ui.results;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.ece.soccert.database.DatabaseHelper;
 import com.ece.soccert.database.model.Result;
 import com.ece.soccert.utils.MyDividerItemDecoration;
 import com.ece.soccert.utils.RecyclerTouchListener;
+import com.ece.soccert.view.StatsActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -68,7 +70,8 @@ public class ResultsFragment extends Fragment {
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
-
+                Intent intent = new Intent(getActivity(), StatsActivity.class);
+                startActivity(intent);
             }
 
             @Override

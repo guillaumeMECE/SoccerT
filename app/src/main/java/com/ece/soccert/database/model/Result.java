@@ -39,6 +39,7 @@ public class Result {
         this.id = id;
         this.teams = new String[]{team1, team2};
         this.scores = new Integer[]{score1, score2};
+        this.timestamp=timestamp;
     }
 
     public int getId() {
