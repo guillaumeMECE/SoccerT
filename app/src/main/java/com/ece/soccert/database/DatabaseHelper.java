@@ -47,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertResult(String[] teams,Integer[] scores) {
+    public long insertResult(String[] teams,int[] scores) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -98,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return new long[]{id, id2};
     }
 
-    public long[] insertScores(Integer[] scores) {
+    public long[] insertScores(int[] scores) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -166,7 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Result result = new Result();
                 result.setId(cursor.getInt(cursor.getColumnIndex(Result.COLUMN_ID)));
                 result.setTeams(new String[]{cursor.getString(cursor.getColumnIndex(Result.COLUMN_TEAM1)), cursor.getString(cursor.getColumnIndex(Result.COLUMN_TEAM2))});
-                result.setScores(new Integer[]{cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET1)), cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET2))});
+                result.setScores(new int[]{cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET1)), cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET2))});
                 result.setTimestamp(cursor.getString(cursor.getColumnIndex(Result.COLUMN_TIMESTAMP)));
 
                 results.add(result);

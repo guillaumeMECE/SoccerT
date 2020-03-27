@@ -1,6 +1,9 @@
 package com.ece.soccert.database.model;
 
-public class Result {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Result implements Parcelable {
     public static final String TABLE_NAME = "results";
 
     public static final String COLUMN_ID = "id";
@@ -12,7 +15,7 @@ public class Result {
 
     private int id;
     private String[] teams;
-    private Integer[] scores;
+    private int[] scores;
     private String timestamp;
 
 
@@ -30,23 +33,25 @@ public class Result {
     public Result() {
     }
 
-    public Result(int id, String[] teams,Integer[] scores, String timestamp) {
+    public Result(int id, String[] teams,int[] scores, String timestamp) {
         this.id = id;
         this.teams = teams;
         this.scores = scores;
     }
-    public Result(int id, String team1,Integer score1,String team2,Integer score2, String timestamp) {
+    public Result(int id, String team1,int score1,String team2,int score2, String timestamp) {
         this.id = id;
         this.teams = new String[]{team1, team2};
-        this.scores = new Integer[]{score1, score2};
+        this.scores = new int[]{score1, score2};
         this.timestamp=timestamp;
     }
+
+
 
     public int getId() {
         return id;
     }
 
-    public Integer[] getScores() {
+    public int[] getScores() {
         return scores;
     }
 
@@ -54,7 +59,7 @@ public class Result {
         return teams;
     }
 
-    public void setScores(Integer[] scores) {
+    public void setScores(int[] scores) {
         this.scores = scores;
     }
 
@@ -73,4 +78,36 @@ public class Result {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public Result(Parcel parcel){
+        this.id = parcel.readInt();
+        this.teams = parcel.createStringArray();
+        this.scores = parcel.createIntArray();
+        this.timestamp=parcel.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeStringArray(teams);
+        dest.writeIntArray(scores);
+        dest.writeString(timestamp);
+    }
+    public static final Parcelable.Creator<Result> CREATOR = new Parcelable.Creator<Result>() {
+
+        @Override
+        public Result createFromParcel(Parcel parcel) {
+            return new Result(parcel);
+        }
+
+        @Override
+        public Result[] newArray(int size) {
+            return new Result[0];
+        }
+    };
 }

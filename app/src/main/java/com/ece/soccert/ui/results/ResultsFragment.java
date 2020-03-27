@@ -3,6 +3,7 @@ package com.ece.soccert.ui.results;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,10 +59,10 @@ public class ResultsFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
        // recyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
-        createNote();
+       // createResult();
         toggleEmptyResults();
 
-        /*
+        /**
           On long press on RecyclerView item, open alert dialog
           with options to choose
           Edit and Delete
@@ -70,7 +71,9 @@ public class ResultsFragment extends Fragment {
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
+                Result result = resultsList.get(position);
                 Intent intent = new Intent(getActivity(), StatsActivity.class);
+                intent.putExtra("Result", result);
                 startActivity(intent);
             }
 
@@ -100,10 +103,10 @@ public class ResultsFragment extends Fragment {
      * Inserting new result in db
      * and refreshing the list
      */
-    private void createNote() {
+    private void createResult() {
         // inserting result in db and getting
         // newly inserted result id
-       long id = db.insertResult(new String[]{"PSG", "OL"}, new Integer[]{2, 1});
+       long id = db.insertResult(new String[]{"PSG", "OL"}, new int[]{2, 1});
 
         // get the newly inserted result from db
         Result r = db.getResult(id);
