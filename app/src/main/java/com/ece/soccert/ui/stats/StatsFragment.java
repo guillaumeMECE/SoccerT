@@ -14,14 +14,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.ece.soccert.R;
 
-public class PlaceholderFragmentStats extends Fragment {
+public class StatsFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private StatsViewModel pageViewModel;
 
-    public static PlaceholderFragmentStats newInstance(int index) {
-        PlaceholderFragmentStats fragment = new PlaceholderFragmentStats();
+    public static StatsFragment newInstance(int index) {
+        StatsFragment fragment = new StatsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, index);
         fragment.setArguments(bundle);

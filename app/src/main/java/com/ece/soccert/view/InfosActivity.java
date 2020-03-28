@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.ece.soccert.R;
 import com.ece.soccert.database.model.Result;
-import com.ece.soccert.utils.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class StatsActivity extends AppCompatActivity {
+public class InfosActivity extends AppCompatActivity {
 
     private TextView team1;
     private TextView team2;
@@ -28,13 +27,13 @@ public class StatsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stats);
+        setContentView(R.layout.activity_infos);
         Intent intent = getIntent();
         Result result = intent.getParcelableExtra("Result");
         Log.d("ID", "StatsActivity: id = "+result.getId());
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),result.getId());
+        InfosPagerAdapter infosPagerAdapter = new InfosPagerAdapter(this, getSupportFragmentManager(),result.getId());
         ViewPager viewPager = findViewById(R.id.view_pager_tabs);
-        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setAdapter(infosPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 

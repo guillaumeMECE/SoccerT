@@ -18,15 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ece.soccert.R;
 import com.ece.soccert.database.DatabaseHelper;
-import com.ece.soccert.database.model.Result;
 import com.ece.soccert.database.model.Step;
-import com.ece.soccert.ui.results.ResultsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PlaceholderFragmentHighlight extends Fragment {
+public class HighlightFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -36,8 +34,8 @@ public class PlaceholderFragmentHighlight extends Fragment {
     private List<Step> stepsList = new ArrayList<>();
     private int idResult;
 
-    public static PlaceholderFragmentHighlight newInstance(int index,int idResult) {
-        PlaceholderFragmentHighlight fragment = new PlaceholderFragmentHighlight();
+    public static HighlightFragment newInstance(int index, int idResult) {
+        HighlightFragment fragment = new HighlightFragment();
         Bundle bundle = new Bundle();
         Log.d("ID", "PlaceHolderFragHighlight NEWINSTANCE: id = "+idResult);
         bundle.putInt(ARG_SECTION_NUMBER, idResult);

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -22,9 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ece.soccert.R;
 import com.ece.soccert.database.DatabaseHelper;
 import com.ece.soccert.database.model.Result;
-import com.ece.soccert.utils.MyDividerItemDecoration;
 import com.ece.soccert.utils.RecyclerTouchListener;
-import com.ece.soccert.view.StatsActivity;
+import com.ece.soccert.view.InfosActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -73,7 +71,7 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onClick(View view, final int position) {
                 Result result = resultsList.get(position);
-                Intent intent = new Intent(getActivity(), StatsActivity.class);
+                Intent intent = new Intent(getActivity(), InfosActivity.class);
                 intent.putExtra("Result", result);
                 startActivity(intent);
             }

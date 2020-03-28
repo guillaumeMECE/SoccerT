@@ -1,4 +1,4 @@
-package com.ece.soccert.utils;
+package com.ece.soccert.view;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,26 +10,26 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.ece.soccert.R;
-import com.ece.soccert.ui.highlights.PlaceholderFragmentHighlight;
-import com.ece.soccert.ui.stats.PlaceholderFragmentStats;
+import com.ece.soccert.ui.highlights.HighlightFragment;
+import com.ece.soccert.ui.stats.StatsFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class InfosPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_a_label, R.string.tab_b_label};
     private final Context mContext;
     private int idResult;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public InfosPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
     }
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, int idResult) {
+    public InfosPagerAdapter(Context context, FragmentManager fm, int idResult) {
         super(fm);
         mContext = context;
         Log.d("ID", "SectionPagerAdapter CTOR: id = "+idResult);
@@ -43,12 +43,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Log.d("TAG", "getItem: "+position);
         if (position == 0){
             Log.d("ID", "SectionPagerAdapter: id = "+idResult);
-            return PlaceholderFragmentHighlight.newInstance(position + 1,idResult);
+            return HighlightFragment.newInstance(position + 1,idResult);
         }else if(position == 1){
-            return PlaceholderFragmentStats.newInstance(position + 1);
+            return StatsFragment.newInstance(position + 1);
         }
 
-       return PlaceholderFragmentHighlight.newInstance(position + 1,idResult);
+       return HighlightFragment.newInstance(position + 1,idResult);
     }
 
     @Nullable
