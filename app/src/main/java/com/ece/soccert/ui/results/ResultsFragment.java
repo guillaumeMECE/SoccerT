@@ -55,6 +55,7 @@ public class ResultsFragment extends Fragment {
         resultsList.addAll(db.getAllResults());
         mAdapter = new ResultsAdapter(getActivity(), resultsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext());
+        Log.d("TAG", "onCreateView: "+Objects.requireNonNull(getActivity()).getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
        // recyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, 16));

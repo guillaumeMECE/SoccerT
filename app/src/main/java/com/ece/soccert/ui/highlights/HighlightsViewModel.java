@@ -12,7 +12,7 @@ public class HighlightsViewModel extends ViewModel {
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
         public String apply(Integer input) {
-            return "Hello world from Highlights: " + input;
+            return String.valueOf(input);
         }
     });
 
@@ -22,5 +22,9 @@ public class HighlightsViewModel extends ViewModel {
 
     public LiveData<String> getText() {
         return mText;
+    }
+
+    public MutableLiveData<Integer> getmIndex() {
+        return mIndex;
     }
 }

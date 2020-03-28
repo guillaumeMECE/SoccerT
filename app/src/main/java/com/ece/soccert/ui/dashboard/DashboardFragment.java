@@ -23,6 +23,7 @@ public class DashboardFragment extends Fragment {
     private DashboardViewModel dashboardViewModel;
     private Button startEndMatch;
     private DatabaseHelper db;
+    long idResult;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,11 +50,12 @@ public class DashboardFragment extends Fragment {
                 if (startEndMatch.getText().equals(getText(R.string.startMatch))){
                     startEndMatch.setText(R.string.endMatch);
                     startEndMatch.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorRed));
-                    long idResult = db.insertResult(new String[]{"USA", "FR"}, new int[]{3, 7});
+                    idResult = db.insertResult(new String[]{"USA", "FR"}, new int[]{3, 7});
                     db.insertStep((int) idResult,"START",2);
                 }else{
                     startEndMatch.setText(R.string.startMatch);
                     startEndMatch.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+                    db.insertStep((int) idResult,"END",2);
                 }
             }
         });

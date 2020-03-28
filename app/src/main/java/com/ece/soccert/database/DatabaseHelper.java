@@ -79,7 +79,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public Step getStepHistory(int idresult) {
+    public List<Step> getStepHistory(int idresult) {
+        List<Step> steps = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + Step.TABLE_NAME + " WHERE " +
                 Step.COLUMN_IDRESULT + "=" + idresult + " ORDER BY " +
@@ -92,18 +93,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        // prepare Step object
-        Step step = new Step(
-                cursor.getInt(cursor.getColumnIndex(Step.COLUMN_ID)),
-                cursor.getInt(cursor.getColumnIndex(Step.COLUMN_IDRESULT)),
-                cursor.getString(cursor.getColumnIndex(Step.COLUMN_NAME)),
-                cursor.getInt(cursor.getColumnIndex(Step.COLUMN_TEAM)),
-                cursor.getString(cursor.getColumnIndex(Step.COLUMN_TIMESTAMP)));
+        if (cursor.moveToFirst()) {
+            do {
+                // prepare Step object
+                Step step = new Step(
+                        cursor.getInt(cursor.getColumnIndex(Step.COLUMN_ID)),
+                        cursor.getInt(cursor.getColumnIndex(Step.COLUMN_IDRESULT)),
+                        cursor.getString(cursor.getColumnIndex(Step.COLUMN_NAME)),
+                        cursor.getInt(cursor.getColumnIndex(Step.COLUMN_TEAM)),
+                        cursor.getString(cursor.getColumnIndex(Step.COLUMN_TIMESTAMP)));
+                steps.add(step);
+            }while (cursor.moveToNext());
+        }
 
+
+
+     /*   if (cursor.moveToFirst()) {
+            do {
+                Result result = new Result();
+                result.setId(cursor.getInt(cursor.getColumnIndex(Result.COLUMN_ID)));
+                result.setTeams(new String[]{cursor.getString(cursor.getColumnIndex(Result.COLUMN_TEAM1)), cursor.getString(cursor.getColumnIndex(Result.COLUMN_TEAM2))});
+                result.setScores(new int[]{cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET1)), cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET2))});
+                result.setTimestamp(cursor.getString(cursor.getColumnIndex(Result.COLUMN_TIMESTAMP)));
+
+                results.add(result);
+            } while (cursor.moveToNext());
+        }*/
         // close the db connection
         cursor.close();
 
-        return step;
+        return steps;
     }
 
     /**

@@ -29,15 +29,16 @@ public class StatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
-
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        Intent intent = getIntent();
+        Result result = intent.getParcelableExtra("Result");
+        Log.d("ID", "StatsActivity: id = "+result.getId());
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),result.getId());
         ViewPager viewPager = findViewById(R.id.view_pager_tabs);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        Intent intent = getIntent();
-        Result result = intent.getParcelableExtra("Result");
+
         Log.d("TAG_intent", "onCreate: "+ Objects.requireNonNull(result).getTeams()[0]);
 
         // Apply change to top card
