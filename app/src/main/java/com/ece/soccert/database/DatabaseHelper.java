@@ -125,6 +125,72 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return steps;
     }
 
+    public int[] getStepYellow(int idresult) {
+       // List<Step> steps = new ArrayList<>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + Step.TABLE_NAME + " WHERE " +
+                Step.COLUMN_IDRESULT + "=" + idresult + " AND " +
+                Step.COLUMN_NAME + "=\"YELLOW CARD\" AND "+Step.COLUMN_TEAM+"=0";
+
+        // get readable database as we are not inserting anything
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        int yT1 = cursor.getCount();
+        cursor.close();
+
+        selectQuery = "SELECT * FROM " + Step.TABLE_NAME + " WHERE " +
+                Step.COLUMN_IDRESULT + "=" + idresult + " AND " +
+                Step.COLUMN_NAME + "=\"YELLOW CARD\" AND "+Step.COLUMN_TEAM+"=1";
+
+        Cursor cursor1 = db.rawQuery(selectQuery, null);
+
+        if (cursor1 != null)
+            cursor1.moveToFirst();
+
+        int yT2 = cursor1.getCount();
+        cursor1.close();
+
+
+        return new int[]{yT1, yT2};
+    }
+
+    public int[] getStepRed(int idresult) {
+        // List<Step> steps = new ArrayList<>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + Step.TABLE_NAME + " WHERE " +
+                Step.COLUMN_IDRESULT + "=" + idresult + " AND " +
+                Step.COLUMN_NAME + "=\"RED CARD\" AND "+Step.COLUMN_TEAM+"=0";
+
+        // get readable database as we are not inserting anything
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        int yT1 = cursor.getCount();
+        cursor.close();
+
+        selectQuery = "SELECT * FROM " + Step.TABLE_NAME + " WHERE " +
+                Step.COLUMN_IDRESULT + "=" + idresult + " AND " +
+                Step.COLUMN_NAME + "=\"RED CARD\" AND "+Step.COLUMN_TEAM+"=1";
+
+        Cursor cursor1 = db.rawQuery(selectQuery, null);
+
+        if (cursor1 != null)
+            cursor1.moveToFirst();
+
+        int yT2 = cursor1.getCount();
+        cursor1.close();
+
+
+        return new int[]{yT1, yT2};
+    }
+
     /**
      * RESULT CRUD
      * @param teams

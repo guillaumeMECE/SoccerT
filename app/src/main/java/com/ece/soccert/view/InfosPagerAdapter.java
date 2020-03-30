@@ -45,7 +45,7 @@ public class InfosPagerAdapter extends FragmentPagerAdapter {
             Log.d("ID", "SectionPagerAdapter: id = "+idResult);
             return HighlightFragment.newInstance(position + 1,idResult);
         }else if(position == 1){
-            return StatsFragment.newInstance(position + 1);
+            return StatsFragment.newInstance(position + 1,idResult);
         }
 
        return HighlightFragment.newInstance(position + 1,idResult);

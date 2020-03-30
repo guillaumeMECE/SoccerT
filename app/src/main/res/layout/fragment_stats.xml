@@ -48,7 +48,7 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:text="@string/team_stats"
-                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textAppearance="?attr/textAppearanceBody1"
                     tools:layout_conversion_absoluteHeight="27dp"
                     tools:layout_conversion_absoluteWidth="192dp"
                     tools:layout_editor_absoluteX="148dp"
@@ -73,46 +73,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp">
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
-                    android:id="@+id/team13"
+                    android:id="@+id/yellow1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Team 1"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    tools:layout_conversion_absoluteHeight="19dp"
-                    tools:layout_conversion_absoluteWidth="124dp"
-                    tools:layout_editor_absoluteX="24dp"
-                    tools:layout_editor_absoluteY="30dp" />
+                    android:textAppearance="?attr/textAppearanceBody2"/>
 
                 <TextView
-                    android:id="@+id/scores3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/team_stats"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    tools:layout_conversion_absoluteHeight="27dp"
-                    tools:layout_conversion_absoluteWidth="192dp"
-                    tools:layout_editor_absoluteX="148dp"
-                    tools:layout_editor_absoluteY="24dp" />
+                    android:text="@string/yellow_card"
+                    android:textAppearance="?attr/textAppearanceBody2" />
 
                 <TextView
-                    android:id="@+id/team23"
+                    android:id="@+id/yellow2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:gravity="end"
                     android:text="Team 2"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    tools:layout_conversion_absoluteHeight="19dp"
-                    tools:layout_conversion_absoluteWidth="48dp"
-                    tools:layout_editor_absoluteX="340dp"
-                    tools:layout_editor_absoluteY="28dp" />
+                    android:textAppearance="?attr/textAppearanceBody2" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:id="@+id/red1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="1"
+                    android:textAppearance="?attr/textAppearanceBody2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/red_card"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+
+                <TextView
+                    android:id="@+id/red2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="end"
+                    android:text="2"
+                    android:textAppearance="?attr/textAppearanceBody2" />
 
             </LinearLayout>
         </LinearLayout>

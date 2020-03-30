@@ -18,6 +18,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.ece.soccert.R;
 import com.ece.soccert.database.DatabaseHelper;
 import com.ece.soccert.database.model.Result;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Objects;
 
@@ -36,13 +39,6 @@ public class DashboardFragment extends Fragment {
          dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         db = new DatabaseHelper(getActivity());
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         final TextView textViewScores = root.findViewById(R.id.scores);
         dashboardViewModel.getScores().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -83,8 +79,16 @@ public class DashboardFragment extends Fragment {
                 textViewRed.setText(s);
             }
         });
+
+        // init to 0 yellow & red Card
         yellow= new int[]{0, 0};
         red= new int[]{0, 0};
+
+        final MaterialCardView cardView = root.findViewById(R.id.card);
+        final MaterialCardView cardViewYellow = root.findViewById(R.id.cardYellow);
+        final MaterialCardView cardViewRed = root.findViewById(R.id.cardred);
+        final TextInputLayout editTeam1 = root.findViewById(R.id.edit_team1);
+        final TextInputLayout editTeam2 = root.findViewById(R.id.edit_team2);
 
         startEndMatch = root.findViewById(R.id.start_end_match);
         startEndMatch.setOnClickListener(new View.OnClickListener()
@@ -96,10 +100,19 @@ public class DashboardFragment extends Fragment {
                 if (startEndMatch.getText().equals(getText(R.string.startMatch))){
                     startEndMatch.setText(R.string.endMatch);
                     startEndMatch.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorRed));
-                    idResult = db.insertResult(new String[]{"USA", "FR"}, new int[]{0, 0});
+
+                    // Create an obj match
+                    idResult = db.insertResult(new String[]{String.valueOf(Objects.requireNonNull(editTeam1.getEditText()).getText()), String.valueOf(Objects.requireNonNull(editTeam2.getEditText()).getText())}, new int[]{0, 0});
                     actual_match = db.getResult(idResult);
                     dashboardViewModel.setTeams(actual_match.getTeams());
                     db.insertStep((int) idResult,"START",2);
+
+                    //Change Visibility of components
+                    editTeam1.setVisibility(View.INVISIBLE);
+                    editTeam2.setVisibility(View.INVISIBLE);
+                    cardView.setVisibility(View.VISIBLE);
+                    cardViewYellow.setVisibility(View.VISIBLE);
+                    cardViewRed.setVisibility(View.VISIBLE);
                 }else{
                     startEndMatch.setText(R.string.startMatch);
                     startEndMatch.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorPrimary));
@@ -107,6 +120,9 @@ public class DashboardFragment extends Fragment {
                 }
             }
         });
+
+
+        // OnClickListener for Goals
 
         Button addBtnGoalT1 = root.findViewById(R.id.add_btn_goal_t1);
         addBtnGoalT1.setOnClickListener(new View.OnClickListener()
@@ -134,6 +150,8 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // OnClickListener for Yellow Card
+
         Button addBtnYellowT1 = root.findViewById(R.id.add_btn_yellow_t1);
         addBtnYellowT1.setOnClickListener(new View.OnClickListener()
         {
@@ -157,6 +175,9 @@ public class DashboardFragment extends Fragment {
                 dashboardViewModel.setYellow(yellow);
             }
         });
+
+
+        // OnClickListener for Red Card
 
         Button addBtnRedT1 = root.findViewById(R.id.add_btn_red_t1);
         addBtnRedT1.setOnClickListener(new View.OnClickListener()
