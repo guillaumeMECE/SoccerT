@@ -62,4 +62,14 @@ public class DashboardFragment extends Fragment {
         return root;
     }
 
+    /**
+     * Automaticaly end the match if it wasn't made manually
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(startEndMatch.getText().equals(getText(R.string.endMatch))){
+            db.insertStep((int) idResult,"END",2);
+        }
+    }
 }
