@@ -117,6 +117,11 @@ public class DashboardFragment extends Fragment {
                     startEndMatch.setText(R.string.startMatch);
                     startEndMatch.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorPrimary));
                     db.insertStep((int) idResult,"END",2);
+                    editTeam1.setVisibility(View.VISIBLE);
+                    editTeam2.setVisibility(View.VISIBLE);
+                    cardView.setVisibility(View.INVISIBLE);
+                    cardViewYellow.setVisibility(View.INVISIBLE);
+                    cardViewRed.setVisibility(View.INVISIBLE);
                 }
             }
         });

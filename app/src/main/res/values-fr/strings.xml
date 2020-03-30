@@ -4,4 +4,10 @@
     <string name="deleteResultAlertBox">Supprimer le match</string>
     <string name="deleteResultAlertBoxBtn">Supprimer</string>
     <string name="title_results">Résultats</string>
+    <string name="startMatch">Début du match</string>
+    <string name="endMatch">Fin du match</string>
+    <string name="red_card">Carton Rouge</string>
+    <string name="yellow_card">Carton Jaune</string>
+    <string name="team_stats">STATS DE L\'EQUIPE</string>
+    <string name="tab_a_label">Temps Forts</string>
 </resources>

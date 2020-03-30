@@ -9,7 +9,7 @@
     <string name="tab_b_label" translatable="false">stats</string>
     <string name="tab_c_label">unknow</string>
     <string name="team_stats">TEAM STATS</string>
-    <string name="add">+</string>
+    <string name="add" translatable="false">+</string>
     <string name="startMatch">Start match</string>
     <string name="endMatch">End match</string>
     <string name="red_card">Red Card</string>
