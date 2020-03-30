@@ -2,6 +2,7 @@ package com.ece.soccert.ui.highlights;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,12 @@ public class HighlightAdapter extends RecyclerView.Adapter<HighlightAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Step step = stepsList.get(position);
         holder.name.setText(step.getName());
+        if (step.getTeam() == 0){
+            holder.name.setGravity(Gravity.START);
+        }else if(step.getTeam()==1){
+            holder.name.setGravity(Gravity.END);
+        }
+
 
         // Formatting and displaying timestamp
         holder.timestamp.setText(formatDate(step.getTimestamp()));

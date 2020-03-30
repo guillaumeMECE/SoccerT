@@ -12,4 +12,6 @@
     <string name="add">+</string>
     <string name="startMatch">Start match</string>
     <string name="endMatch">End match</string>
+    <string name="red_card">Red Card</string>
+    <string name="yellow_card">Yellow Card</string>
 </resources>

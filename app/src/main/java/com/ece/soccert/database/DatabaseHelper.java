@@ -230,16 +230,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    /*public int updateResult(Result result) {
+    public int updateResult(Result result) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Result.COLUMN_NOTE, note.getNote());
+        values.put(Result.COLUMN_SCORET1, result.getScores()[0]);
+        values.put(Result.COLUMN_SCORET2, result.getScores()[1]);
 
         // updating row
-        return db.update(Note.TABLE_NAME, values, Note.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(note.getId())});
-    }*/
+        return db.update(Result.TABLE_NAME, values, Result.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(result.getId())});
+    }
 
     public void deleteResult(Result result) {
         SQLiteDatabase db = this.getWritableDatabase();

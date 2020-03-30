@@ -79,10 +79,10 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/addBtnGoalT1"
+                    android:id="@+id/add_btn_goal_t1"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_weight="0"
                     android:text="@string/add"
                     android:textSize="18sp"
@@ -94,11 +94,11 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/addBtnGoalT2"
+                    android:id="@+id/add_btn_goal_t2"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_gravity="end"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_weight="0"
                     android:text="@string/add"
                     android:textSize="18sp" />
@@ -106,6 +106,193 @@
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+    android:id="@+id/cardYellow"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cardred"
+    app:layout_constraintTop_toBottomOf="@+id/card">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="0dp">
+
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/yellow_card"
+                android:textAppearance="?attr/textAppearanceBody1"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutYellow0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="0dp">
+
+
+            <TextView
+                android:id="@+id/yellow_nb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="1 - 0"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                tools:layout_conversion_absoluteHeight="27dp"
+                tools:layout_conversion_absoluteWidth="192dp"
+                tools:layout_editor_absoluteX="148dp"
+                tools:layout_editor_absoluteY="24dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutYellow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/add_btn_yellow_t1"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="16dp"
+                android:layout_weight="0"
+                android:text="@string/add"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/add_btn_yellow_t2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="0"
+                android:text="@string/add"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardred"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toEndOf="@id/cardYellow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="0dp">
+
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/red_card"
+                    android:textAppearance="?attr/textAppearanceBody1"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutred0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="0dp">
+
+
+
+                <TextView
+                    android:id="@+id/red_nb"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="1 - 0"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
+                    tools:layout_conversion_absoluteHeight="27dp"
+                    tools:layout_conversion_absoluteWidth="192dp"
+                    tools:layout_editor_absoluteX="148dp"
+                    tools:layout_editor_absoluteY="24dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutred1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/add_btn_red_t1"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="0"
+                    android:text="@string/add"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/add_btn_red_t2"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="0"
+                    android:text="@string/add"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    
     <TextView
         android:id="@+id/text_dashboard"
         android:layout_width="match_parent"
