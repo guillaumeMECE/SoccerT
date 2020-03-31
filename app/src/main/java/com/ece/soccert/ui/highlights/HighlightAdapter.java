@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ece.soccert.R;
-import com.ece.soccert.database.model.Result;
 import com.ece.soccert.database.model.Step;
 
 import java.text.ParseException;

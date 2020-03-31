@@ -1,8 +1,5 @@
 package com.ece.soccert.database.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 public class Step {
     public static final String TABLE_NAME = "step";
 
@@ -29,8 +26,6 @@ public class Step {
                     + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
 
-    public Step() {
-    }
 
     public Step(int id, int idresult, String name, int team, String timestamp) {
         this.id = id;
@@ -42,10 +37,6 @@ public class Step {
 
     public int getId() {
         return id;
-    }
-
-    public int getIdresult() {
-        return idresult;
     }
 
     public int getTeam() {
@@ -60,24 +51,12 @@ public class Step {
         return timestamp;
     }
 
-    public void setIdresult(int idresult) {
-        this.idresult = idresult;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setTeam(int team) {
-        this.team = team;
-    }
-
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
     }
 
 }

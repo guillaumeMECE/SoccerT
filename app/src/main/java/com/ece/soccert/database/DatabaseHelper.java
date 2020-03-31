@@ -106,19 +106,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
-
-
-     /*   if (cursor.moveToFirst()) {
-            do {
-                Result result = new Result();
-                result.setId(cursor.getInt(cursor.getColumnIndex(Result.COLUMN_ID)));
-                result.setTeams(new String[]{cursor.getString(cursor.getColumnIndex(Result.COLUMN_TEAM1)), cursor.getString(cursor.getColumnIndex(Result.COLUMN_TEAM2))});
-                result.setScores(new int[]{cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET1)), cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET2))});
-                result.setTimestamp(cursor.getString(cursor.getColumnIndex(Result.COLUMN_TIMESTAMP)));
-
-                results.add(result);
-            } while (cursor.moveToNext());
-        }*/
         // close the db connection
         cursor.close();
 
@@ -126,7 +113,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public int[] getStepStrike(int idresult) {
-        // List<Step> steps = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT * FROM " + Step.TABLE_NAME + " WHERE (" +
                 Step.COLUMN_IDRESULT + "=" + idresult + " AND " +
@@ -162,12 +148,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int yT2 = cursor1.getCount();
         cursor1.close();
 
-
         return new int[]{yT1, yT2};
     }
 
     public int[] getStepFault(int idresult) {
-        // List<Step> steps = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT * FROM " + Step.TABLE_NAME + " WHERE (" +
                 Step.COLUMN_IDRESULT + "=" + idresult + " AND " +
@@ -209,12 +193,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int yT2 = cursor1.getCount();
         cursor1.close();
 
-
         return new int[]{yT1, yT2};
     }
 
     public int[] getStepYellow(int idresult) {
-       // List<Step> steps = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT * FROM " + Step.TABLE_NAME + " WHERE " +
                 Step.COLUMN_IDRESULT + "=" + idresult + " AND " +
@@ -242,12 +224,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int yT2 = cursor1.getCount();
         cursor1.close();
 
-
         return new int[]{yT1, yT2};
     }
 
     public int[] getStepRed(int idresult) {
-        // List<Step> steps = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT * FROM " + Step.TABLE_NAME + " WHERE " +
                 Step.COLUMN_IDRESULT + "=" + idresult + " AND " +
@@ -274,7 +254,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         int yT2 = cursor1.getCount();
         cursor1.close();
-
 
         return new int[]{yT1, yT2};
     }
@@ -306,10 +285,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // return newly inserted row id
         return id;
-       /* long[] resultTeams = insertTeams(teams);
-        Log.d("DB", "insertResult/insertTeams: "+ Arrays.toString(resultTeams));
-        long[] resultScores = insertScores(scores);
-        Log.d("DB", "insertResult/insertScores: "+ Arrays.toString(resultScores));*/
     }
 
     public Result getResult(long id) {
@@ -350,7 +325,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             Cursor cursor = db.rawQuery(selectQuery, null);
 
-
             // looping through all rows and adding to list
             if (cursor.moveToFirst()) {
                 do {
@@ -379,8 +353,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int count = cursor.getCount();
         cursor.close();
 
-
-        // return count
         return count;
     }
 

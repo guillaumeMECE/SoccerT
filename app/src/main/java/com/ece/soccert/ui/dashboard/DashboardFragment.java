@@ -21,7 +21,6 @@ import com.ece.soccert.database.model.Result;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Objects;
 
@@ -31,11 +30,11 @@ public class DashboardFragment extends Fragment {
     private DatabaseHelper db;
     private long idResult;
     private Result actual_match;
-    DashboardViewModel dashboardViewModel;
-    int[] strike;
-    int[] fault;
-    int[] yellow;
-    int[] red;
+    private DashboardViewModel dashboardViewModel;
+    private int[] strike;
+    private int[] fault;
+    private int[] yellow;
+    private int[] red;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

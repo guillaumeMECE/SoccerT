@@ -33,11 +33,6 @@ public class Result implements Parcelable {
     public Result() {
     }
 
-    public Result(int id, String[] teams,int[] scores, String timestamp) {
-        this.id = id;
-        this.teams = teams;
-        this.scores = scores;
-    }
     public Result(int id, String team1,int score1,String team2,int score2, String timestamp) {
         this.id = id;
         this.teams = new String[]{team1, team2};
@@ -84,7 +79,7 @@ public class Result implements Parcelable {
         return 0;
     }
 
-    public Result(Parcel parcel){
+    private Result(Parcel parcel){
         this.id = parcel.readInt();
         this.teams = parcel.createStringArray();
         this.scores = parcel.createIntArray();

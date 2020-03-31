@@ -33,48 +33,48 @@ public class DashboardViewModel extends ViewModel {
         mFault.setValue("0 - 0");
     }
 
-    public void setTeams(String[] team) {
+    void setTeams(String[] team) {
         this.mT1.setValue(team[0]);
         this.mT2.setValue(team[1]);
     }
 
-    public MutableLiveData<String> getStrike() {
+    MutableLiveData<String> getStrike() {
         return mStrike;
     }
 
-    public void setStrike(int[] mStrike) {
+    void setStrike(int[] mStrike) {
         this.mStrike.setValue(String.valueOf(mStrike[0]).concat(" - " + mStrike[1]));
     }
 
-    public MutableLiveData<String> getFault() {
+    MutableLiveData<String> getFault() {
         return mFault;
     }
 
-    public void setFault(int[] mFault) {
+    void setFault(int[] mFault) {
         this.mFault.setValue(String.valueOf(mFault[0]).concat(" - " + mFault[1]));
     }
 
-    public MutableLiveData<String> getYellow() {
+    MutableLiveData<String> getYellow() {
         return mYellow;
     }
 
-    public void setYellow(int[] mYellow) {
+    void setYellow(int[] mYellow) {
         this.mYellow.setValue(String.valueOf(mYellow[0]).concat(" - " + mYellow[1]));
     }
 
-    public MutableLiveData<String> getRed() {
+    MutableLiveData<String> getRed() {
         return mRed;
     }
 
-    public void setRed(int[] mRed) {
+    void setRed(int[] mRed) {
         this.mRed.setValue(String.valueOf(mRed[0]).concat(" - " + mRed[1]));
     }
 
-    public MutableLiveData<String> getmT1() {
+    MutableLiveData<String> getmT1() {
         return mT1;
     }
 
-    public MutableLiveData<String> getmT2() {
+    MutableLiveData<String> getmT2() {
         return mT2;
     }
 
