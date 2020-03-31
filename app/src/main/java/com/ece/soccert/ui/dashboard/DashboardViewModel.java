@@ -10,8 +10,11 @@ public class DashboardViewModel extends ViewModel {
     private MutableLiveData<String> mScores;
     private MutableLiveData<String> mT1;
     private MutableLiveData<String> mT2;
+    private MutableLiveData<String> mStrike;
+    private MutableLiveData<String> mFault;
     private MutableLiveData<String> mYellow;
     private MutableLiveData<String> mRed;
+
 
     public DashboardViewModel() {
         mText = new MutableLiveData<>();
@@ -24,11 +27,31 @@ public class DashboardViewModel extends ViewModel {
         mYellow.setValue("0 - 0");
         mRed = new MutableLiveData<>();
         mRed.setValue("0 - 0");
+        mStrike = new MutableLiveData<>();
+        mStrike.setValue("0 - 0");
+        mFault = new MutableLiveData<>();
+        mFault.setValue("0 - 0");
     }
 
     public void setTeams(String[] team) {
         this.mT1.setValue(team[0]);
         this.mT2.setValue(team[1]);
+    }
+
+    public MutableLiveData<String> getStrike() {
+        return mStrike;
+    }
+
+    public void setStrike(int[] mStrike) {
+        this.mStrike.setValue(String.valueOf(mStrike[0]).concat(" - " + mStrike[1]));
+    }
+
+    public MutableLiveData<String> getFault() {
+        return mFault;
+    }
+
+    public void setFault(int[] mFault) {
+        this.mFault.setValue(String.valueOf(mFault[0]).concat(" - " + mFault[1]));
     }
 
     public MutableLiveData<String> getYellow() {

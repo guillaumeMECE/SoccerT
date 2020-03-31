@@ -68,6 +68,79 @@
                     tools:layout_editor_absoluteY="28dp" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutStrike"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:id="@+id/strike1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="1"
+                    android:textAppearance="?attr/textAppearanceBody2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/strike"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+
+                <TextView
+                    android:id="@+id/strike2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="end"
+                    android:text="2"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutFault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:id="@+id/fault1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="1"
+                    android:textAppearance="?attr/textAppearanceBody2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/fault"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+
+                <TextView
+                    android:id="@+id/fault2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="end"
+                    android:text="2"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
@@ -138,6 +211,17 @@
                     android:gravity="end"
                     android:text="2"
                     android:textAppearance="?attr/textAppearanceBody2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp">
 
             </LinearLayout>
         </LinearLayout>

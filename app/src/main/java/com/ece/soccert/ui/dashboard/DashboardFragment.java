@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.ece.soccert.R;
 import com.ece.soccert.database.DatabaseHelper;
 import com.ece.soccert.database.model.Result;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -26,11 +27,13 @@ import java.util.Objects;
 
 public class DashboardFragment extends Fragment {
 
-    private Button startEndMatch;
+    private MaterialButton startEndMatch;
     private DatabaseHelper db;
     private long idResult;
     private Result actual_match;
     DashboardViewModel dashboardViewModel;
+    int[] strike;
+    int[] fault;
     int[] yellow;
     int[] red;
 
@@ -64,6 +67,22 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        final TextView textViewStrike = root.findViewById(R.id.strike_nb);
+        dashboardViewModel.getStrike().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                textViewStrike.setText(s);
+            }
+        });
+
+        final TextView textViewFault = root.findViewById(R.id.fault_nb);
+        dashboardViewModel.getFault().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                textViewFault.setText(s);
+            }
+        });
+
         final TextView textViewYellow = root.findViewById(R.id.yellow_nb);
         dashboardViewModel.getYellow().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -80,11 +99,17 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // init to 0 strike & fault
+        strike= new int[]{0, 0};
+        fault= new int[]{0, 0};
+
         // init to 0 yellow & red Card
         yellow= new int[]{0, 0};
         red= new int[]{0, 0};
 
         final MaterialCardView cardView = root.findViewById(R.id.card);
+        final MaterialCardView cardViewStrike = root.findViewById(R.id.cardStrike);
+        final MaterialCardView cardViewFault = root.findViewById(R.id.cardFault);
         final MaterialCardView cardViewYellow = root.findViewById(R.id.cardYellow);
         final MaterialCardView cardViewRed = root.findViewById(R.id.cardred);
         final TextInputLayout editTeam1 = root.findViewById(R.id.edit_team1);
@@ -99,6 +124,7 @@ public class DashboardFragment extends Fragment {
                 Log.d("TAG", "onClick: TEST : "+startEndMatch.getText().equals(getText(R.string.startMatch)));
                 if (startEndMatch.getText().equals(getText(R.string.startMatch))){
                     startEndMatch.setText(R.string.endMatch);
+                    startEndMatch.setIcon(getResources().getDrawable(R.drawable.ic_stop));
                     startEndMatch.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorRed));
 
                     // Create an obj match
@@ -111,15 +137,20 @@ public class DashboardFragment extends Fragment {
                     editTeam1.setVisibility(View.INVISIBLE);
                     editTeam2.setVisibility(View.INVISIBLE);
                     cardView.setVisibility(View.VISIBLE);
+                    cardViewStrike.setVisibility(View.VISIBLE);
+                    cardViewFault.setVisibility(View.VISIBLE);
                     cardViewYellow.setVisibility(View.VISIBLE);
                     cardViewRed.setVisibility(View.VISIBLE);
                 }else{
                     startEndMatch.setText(R.string.startMatch);
+                    startEndMatch.setIcon(getResources().getDrawable(R.drawable.ic_play));
                     startEndMatch.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorPrimary));
                     db.insertStep((int) idResult,"END",2);
                     editTeam1.setVisibility(View.VISIBLE);
                     editTeam2.setVisibility(View.VISIBLE);
                     cardView.setVisibility(View.INVISIBLE);
+                    cardViewStrike.setVisibility(View.INVISIBLE);
+                    cardViewFault.setVisibility(View.INVISIBLE);
                     cardViewYellow.setVisibility(View.INVISIBLE);
                     cardViewRed.setVisibility(View.INVISIBLE);
                 }
@@ -139,6 +170,10 @@ public class DashboardFragment extends Fragment {
                 actual_match.setScores(new int[]{actual_match.getScores()[0] + 1, actual_match.getScores()[1]});
                 db.updateResult(actual_match);
                 dashboardViewModel.setScores(actual_match.getScores());
+
+                // Update Strike
+                strike[0]=strike[0]+1;
+                dashboardViewModel.setStrike(strike);
             }
         });
 
@@ -152,8 +187,67 @@ public class DashboardFragment extends Fragment {
                 actual_match.setScores(new int[]{actual_match.getScores()[0], actual_match.getScores()[1] + 1});
                 db.updateResult(actual_match);
                 dashboardViewModel.setScores(actual_match.getScores());
+
+                // Update Strike
+                strike[1]=strike[1]+1;
+                dashboardViewModel.setStrike(strike);
             }
         });
+
+
+        /* OnClickListener for Strike Card */
+
+        Button addBtnStrikeT1 = root.findViewById(R.id.add_btn_strike_t1);
+        addBtnStrikeT1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                db.insertStep((int) idResult,"LOST STRIKE",0);
+                strike[0]=strike[0]+1;
+                dashboardViewModel.setStrike(strike);
+            }
+        });
+
+        Button addBtnStrikeT2 = root.findViewById(R.id.add_btn_strike_t2);
+        addBtnStrikeT2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                db.insertStep((int) idResult,"LOST STRIKE",1);
+                strike[1]=strike[1]+1;
+                dashboardViewModel.setStrike(strike);
+            }
+        });
+
+
+        /* OnClickListener for Fault Card */
+
+        Button addBtnFaultT1 = root.findViewById(R.id.add_btn_fault_t1);
+        addBtnFaultT1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                db.insertStep((int) idResult,"FAULT",0);
+                fault[0]=fault[0]+1;
+                dashboardViewModel.setFault(fault);
+            }
+        });
+
+        Button addBtnFaultT2 = root.findViewById(R.id.add_btn_fault_t2);
+        addBtnFaultT2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                db.insertStep((int) idResult,"FAULT",1);
+                fault[1]=fault[1]+1;
+                dashboardViewModel.setFault(fault);
+            }
+        });
+
 
         // OnClickListener for Yellow Card
 
@@ -166,6 +260,10 @@ public class DashboardFragment extends Fragment {
                 db.insertStep((int) idResult,"YELLOW CARD",0);
                 yellow[0]=yellow[0]+1;
                 dashboardViewModel.setYellow(yellow);
+
+                // Update Fault
+                fault[0]=fault[0]+1;
+                dashboardViewModel.setFault(fault);
             }
         });
 
@@ -178,6 +276,10 @@ public class DashboardFragment extends Fragment {
                 db.insertStep((int) idResult,"YELLOW CARD",1);
                 yellow[1]=yellow[1]+1;
                 dashboardViewModel.setYellow(yellow);
+
+                // Update Fault
+                fault[1]=fault[1]+1;
+                dashboardViewModel.setFault(fault);
             }
         });
 
@@ -193,6 +295,10 @@ public class DashboardFragment extends Fragment {
                 db.insertStep((int) idResult,"RED CARD",0);
                 red[0]=red[0]+1;
                 dashboardViewModel.setRed(red);
+
+                // Update Fault
+                fault[0]=fault[0]+1;
+                dashboardViewModel.setFault(fault);
             }
         });
 
@@ -205,6 +311,10 @@ public class DashboardFragment extends Fragment {
                 db.insertStep((int) idResult,"RED CARD",1);
                 red[1]=red[1]+1;
                 dashboardViewModel.setRed(red);
+
+                // Update Fault
+                fault[1]=fault[1]+1;
+                dashboardViewModel.setFault(fault);
             }
         });
         

@@ -64,6 +64,19 @@ public class StatsFragment extends Fragment {
         final TextView textViewTeam2 = root.findViewById(R.id.team2);
         textViewTeam2.setText(result.getTeams()[1]);
 
+        int[] strike= db.getStepStrike(idResult);
+        int[] fault= db.getStepFault(idResult);
+
+        final TextView textViewFault1 = root.findViewById(R.id.fault1);
+        textViewFault1.setText(String.valueOf(fault[0]));
+        final TextView textViewFault2 = root.findViewById(R.id.fault2);
+        textViewFault2.setText(String.valueOf(fault[1]));
+
+        final TextView textViewStrike1 = root.findViewById(R.id.strike1);
+        textViewStrike1.setText(String.valueOf(strike[0]));
+        final TextView textViewStrike2 = root.findViewById(R.id.strike2);
+        textViewStrike2.setText(String.valueOf(strike[1]));
+
         int[] yellow = db.getStepYellow(idResult);
         int[] red= db.getStepRed(idResult);
 

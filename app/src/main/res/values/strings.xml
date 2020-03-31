@@ -16,4 +16,6 @@
     <string name="yellow_card">Yellow Card</string>
     <string name="first_team_name">First Team Name</string>
     <string name="second_team_name">Second Team Name</string>
+    <string name="strike">Strike</string>
+    <string name="fault">Fault</string>
 </resources>
