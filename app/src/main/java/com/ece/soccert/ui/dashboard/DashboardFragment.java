@@ -54,15 +54,12 @@ public class DashboardFragment extends Fragment implements LocationListener  {
     private double[] pos = {0,0};
     LocationManager locationManager;
     String provider;
-    Location location;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        // fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-
 
         //Géolocalisation
         //Get location manager
@@ -71,8 +68,6 @@ public class DashboardFragment extends Fragment implements LocationListener  {
         //Critère pour le choix du fournisseur
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
-        //provider = locationManager.GPS_PROVIDER;
-        Log.d("coucou", "0");
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -93,7 +88,6 @@ public class DashboardFragment extends Fragment implements LocationListener  {
 
 
         if (location != null) {
-            //System.out.println("Provider " + provider + " has been selected.");
             onLocationChanged(location);
         } else {
             //Message d'erreur
@@ -386,10 +380,7 @@ public class DashboardFragment extends Fragment implements LocationListener  {
     public void onLocationChanged(Location location) {
         pos[0] =  location.getLatitude();
         pos[1] =  location.getLongitude();
-        /*if (actual_match.i)
-        actual_match.setLatitude(lat);
-        actual_match.setLatitude(lng);
-        db.updateResult(actual_match);*/
+
         Log.d("MAPP", "onLocationChanged: " + pos[0] + " / " + pos[1]);
 
     }
@@ -411,7 +402,6 @@ public class DashboardFragment extends Fragment implements LocationListener  {
         Toast.makeText(getContext(), "Disabled provider " + provider,
                 Toast.LENGTH_SHORT).show();
     }
-
 
     /**
      * Automaticaly end the match if it wasn't made manually
