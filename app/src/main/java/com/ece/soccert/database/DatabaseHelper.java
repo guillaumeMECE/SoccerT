@@ -20,7 +20,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "soccert_db";
@@ -265,7 +265,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
 
-    public long insertResult(String[] teams,int[] scores) {
+    public long insertResult(String[] teams,int[] scores,double[] pos) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -276,6 +276,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Result.COLUMN_TEAM2, teams[1]);
         values.put(Result.COLUMN_SCORET1, scores[0]);
         values.put(Result.COLUMN_SCORET2, scores[1]);
+        values.put(Result.COLUMN_LAT, pos[0]);
+        values.put(Result.COLUMN_LONG, pos[1]);
 
         // insert row
         long id = db.insert(Result.TABLE_NAME, null, values);
@@ -292,7 +294,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(Result.TABLE_NAME,
-                new String[]{Result.COLUMN_ID, Result.COLUMN_TEAM1,Result.COLUMN_SCORET1,Result.COLUMN_TEAM2,Result.COLUMN_SCORET2, Result.COLUMN_TIMESTAMP},
+                new String[]{Result.COLUMN_ID, Result.COLUMN_TEAM1,Result.COLUMN_SCORET1,Result.COLUMN_TEAM2,Result.COLUMN_SCORET2, Result.COLUMN_TIMESTAMP,Result.COLUMN_LAT,Result.COLUMN_LONG},
                 Result.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -306,7 +308,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET1)),
                 cursor.getString(cursor.getColumnIndex(Result.COLUMN_TEAM2)),
                 cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET2)),
-                cursor.getString(cursor.getColumnIndex(Result.COLUMN_TIMESTAMP)));
+                cursor.getString(cursor.getColumnIndex(Result.COLUMN_TIMESTAMP)),
+                cursor.getDouble(cursor.getColumnIndex(Result.COLUMN_LAT)),
+                cursor.getDouble(cursor.getColumnIndex(Result.COLUMN_LONG)));
 
         // close the db connection
         cursor.close();
@@ -333,6 +337,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     result.setTeams(new String[]{cursor.getString(cursor.getColumnIndex(Result.COLUMN_TEAM1)), cursor.getString(cursor.getColumnIndex(Result.COLUMN_TEAM2))});
                     result.setScores(new int[]{cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET1)), cursor.getInt(cursor.getColumnIndex(Result.COLUMN_SCORET2))});
                     result.setTimestamp(cursor.getString(cursor.getColumnIndex(Result.COLUMN_TIMESTAMP)));
+                    result.setLatitude(cursor.getDouble(cursor.getColumnIndex(Result.COLUMN_LAT)));
+                    result.setLongitude(cursor.getDouble(cursor.getColumnIndex(Result.COLUMN_LONG)));
 
                     results.add(result);
                 } while (cursor.moveToNext());

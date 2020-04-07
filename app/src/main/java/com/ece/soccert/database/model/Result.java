@@ -12,11 +12,16 @@ public class Result implements Parcelable {
     public static final String COLUMN_TEAM2 = "team2";
     public static final String COLUMN_SCORET2 = "scoret2";
     public static final String COLUMN_TIMESTAMP = "timestamp";
+    public static final String COLUMN_LAT = "lat";
+    public static final String COLUMN_LONG = "long";
 
     private int id;
     private String[] teams;
     private int[] scores;
     private String timestamp;
+    private double longitude;
+    private double latitude;
+
 
 
     // Create table SQL query
@@ -27,7 +32,9 @@ public class Result implements Parcelable {
                     + COLUMN_SCORET1 + " INTEGER,"
                     + COLUMN_TEAM2 + " TEXT,"
                     + COLUMN_SCORET2 + " INTEGER,"
-                    + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
+                    + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                    + COLUMN_LAT + " DOUBLE,"
+                    + COLUMN_LONG + " DOUBLE"
                     + ")";
 
     public Result() {
@@ -40,7 +47,31 @@ public class Result implements Parcelable {
         this.timestamp=timestamp;
     }
 
+    public Result(int id, String team1,int score1,String team2,int score2, String timestamp,double latitude,double longitude) {
+        this.id = id;
+        this.teams = new String[]{team1, team2};
+        this.scores = new int[]{score1, score2};
+        this.timestamp=timestamp;
+        this.latitude=latitude;
+        this.longitude=longitude;
+    }
 
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
     public int getId() {
         return id;

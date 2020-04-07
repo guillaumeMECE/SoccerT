@@ -102,7 +102,7 @@ public class ResultsFragment extends Fragment {
      * Inserting new result in db
      * and refreshing the list
      */
-    private void createResult() {
+   /* private void createResult() {
         // inserting result in db and getting
         // newly inserted result id
        long id = db.insertResult(new String[]{"PSG", "OL"}, new int[]{2, 1});
@@ -119,7 +119,7 @@ public class ResultsFragment extends Fragment {
 
             toggleEmptyResults();
         }
-    }
+    }*/
 
     /**
      * Deleting note from SQLite and removing the

@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.ece.soccert.R;
 import com.ece.soccert.ui.highlights.HighlightFragment;
+import com.ece.soccert.ui.maps.MapsFragment;
 import com.ece.soccert.ui.stats.StatsFragment;
 
 /**
@@ -20,7 +21,8 @@ import com.ece.soccert.ui.stats.StatsFragment;
 public class InfosPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_a_label, R.string.tab_b_label};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_a_label, R.string.tab_b_label,R.string.tab_c_label};
+   // private static final int[] TAB_TITLES = new int[]{R.string.tab_a_label, R.string.tab_b_label,R.string.tab_c_label};
     private final Context mContext;
     private int idResult;
 
@@ -40,15 +42,17 @@ public class InfosPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        Log.d("TAG", "getItem: "+position);
+        Log.d("TAG", "getItem: " + position);
         if (position == 0){
             Log.d("ID", "SectionPagerAdapter: id = "+idResult);
             return HighlightFragment.newInstance(position + 1,idResult);
         }else if(position == 1){
             return StatsFragment.newInstance(position + 1,idResult);
+        }else if(position == 2){
+            return MapsFragment.newInstance(position + 1,idResult);
         }
 
-       return HighlightFragment.newInstance(position + 1,idResult);
+       return StatsFragment.newInstance(position + 1,idResult);
     }
 
     @Nullable
@@ -60,6 +64,6 @@ public class InfosPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 2;
+        return 3;
     }
 }

@@ -5,9 +5,9 @@
     <string name="title_notifications" translatable="false">Notifications</string>
     <string name="deleteResultAlertBox">Delete the match</string>
     <string name="deleteResultAlertBoxBtn">Delete</string>
-    <string name="tab_a_label">" Highligths"</string>
+    <string name="tab_a_label">Highligths</string>
     <string name="tab_b_label" translatable="false">stats</string>
-    <string name="tab_c_label">unknow</string>
+    <string name="tab_c_label">Map</string>
     <string name="team_stats">TEAM STATS</string>
     <string name="add" translatable="false">+</string>
     <string name="startMatch">Start match</string>
@@ -18,4 +18,5 @@
     <string name="second_team_name">Second Team Name</string>
     <string name="strike">Strike</string>
     <string name="fault">Fault</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

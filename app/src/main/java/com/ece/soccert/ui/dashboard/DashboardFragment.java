@@ -1,5 +1,13 @@
 package com.ece.soccert.ui.dashboard;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,24 +15,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
+import android.Manifest;
 import com.ece.soccert.R;
 import com.ece.soccert.database.DatabaseHelper;
 import com.ece.soccert.database.model.Result;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
+import java.util.concurrent.Executor;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements LocationListener  {
 
     private MaterialButton startEndMatch;
     private DatabaseHelper db;
@@ -35,11 +50,56 @@ public class DashboardFragment extends Fragment {
     private int[] fault;
     private int[] yellow;
     private int[] red;
+    private FusedLocationProviderClient fusedLocationClient;
+    private double[] pos = {0,0};
+    LocationManager locationManager;
+    String provider;
+    Location location;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
+        dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        // fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
+
+        //Géolocalisation
+        //Get location manager
+        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+
+        //Critère pour le choix du fournisseur
+        Criteria criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, false);
+        //provider = locationManager.GPS_PROVIDER;
+        Log.d("coucou", "0");
+
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.INTERNET
+                }, 10);
+
+            }
+            return root;
+        }
+
+        Location location = locationManager.getLastKnownLocation(provider);
+
+
+        if (location != null) {
+            //System.out.println("Provider " + provider + " has been selected.");
+            onLocationChanged(location);
+        } else {
+            //Message d'erreur
+            System.out.println("Provider not found.");
+        }
+
         db = new DatabaseHelper(getActivity());
 
         final TextView textViewScores = root.findViewById(R.id.scores);
@@ -127,7 +187,7 @@ public class DashboardFragment extends Fragment {
                     startEndMatch.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorRed));
 
                     // Create an obj match
-                    idResult = db.insertResult(new String[]{String.valueOf(Objects.requireNonNull(editTeam1.getEditText()).getText()), String.valueOf(Objects.requireNonNull(editTeam2.getEditText()).getText())}, new int[]{0, 0});
+                    idResult = db.insertResult(new String[]{String.valueOf(Objects.requireNonNull(editTeam1.getEditText()).getText()), String.valueOf(Objects.requireNonNull(editTeam2.getEditText()).getText())}, new int[]{0, 0},pos);
                     actual_match = db.getResult(idResult);
                     dashboardViewModel.setTeams(actual_match.getTeams());
                     db.insertStep((int) idResult,"START",2);
@@ -320,6 +380,39 @@ public class DashboardFragment extends Fragment {
         return root;
     }
 
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        pos[0] =  location.getLatitude();
+        pos[1] =  location.getLongitude();
+        /*if (actual_match.i)
+        actual_match.setLatitude(lat);
+        actual_match.setLatitude(lng);
+        db.updateResult(actual_match);*/
+        Log.d("MAPP", "onLocationChanged: " + pos[0] + " / " + pos[1]);
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // TODO Auto-generated method stub
+
+    }
+    @Override
+    public void onProviderEnabled(String provider) {
+        Toast.makeText(getContext(), "Enabled new provider " + provider,
+                Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Toast.makeText(getContext(), "Disabled provider " + provider,
+                Toast.LENGTH_SHORT).show();
+    }
+
+
     /**
      * Automaticaly end the match if it wasn't made manually
      */
@@ -330,4 +423,6 @@ public class DashboardFragment extends Fragment {
             db.insertStep((int) idResult,"END",2);
         }
     }
+
+
 }
