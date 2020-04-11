@@ -2,7 +2,7 @@
     <string name="app_name">SoccerT</string>
     <string name="title_results">Results</string>
     <string name="title_dashboard" translatable="false">Dashboard</string>
-    <string name="title_notifications" translatable="false">Notifications</string>
+    <string name="title_notifications" translatable="false">User</string>
     <string name="deleteResultAlertBox">Delete the match</string>
     <string name="deleteResultAlertBoxBtn">Delete</string>
     <string name="tab_a_label">" Highligths"</string>

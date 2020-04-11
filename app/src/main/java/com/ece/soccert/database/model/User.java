@@ -24,11 +24,11 @@ public class User {
 
     // Create table SQL query
     public static final String CREATE_TABLE =
-            "CREATE TABLE " + TABLE_NAME + "("
+            "CREATE TABLE " + TABLE_NAME + " ("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_NAME + " TEXT,"
                     + COLUMN_SURNAME + " TEXT,"
-                    + COLUMN_PHOTO + " IMAGE ,"
+                    + COLUMN_PHOTO + " IMAGE"
                     + ")";
 
    /* public User(int anInt, String string, String cursorString, byte[] blob) {
