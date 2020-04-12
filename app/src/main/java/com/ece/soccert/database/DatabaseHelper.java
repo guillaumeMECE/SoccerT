@@ -5,11 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.ece.soccert.database.model.Result;
 import com.ece.soccert.database.model.Step;
+import com.ece.soccert.database.model.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +39,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // create notes table
         db.execSQL(Result.CREATE_TABLE);
         db.execSQL(Step.CREATE_TABLE);
+        db.execSQL(User.CREATE_TABLE);
+
     }
 
     // Upgrading database
@@ -45,6 +49,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + Result.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Step.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + User.TABLE_NAME);
+
 
         // Create tables again
         onCreate(db);
@@ -380,4 +386,96 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(result.getId())});
         db.close();
     }
+
+    /**
+     * USER CRUD
+     * @param name
+     * @param surname
+     * @param photo
+     * @return
+     */
+
+
+
+    public long insertUser(String name, String surname, byte[] photo) {
+        // get writable database as we want to write data
+       /* SQLiteDatabase db = this.getWritableDatabase();
+
+        String sql = "INSERT INTO  User   VALUES (NULL, ?, ?, ?)";
+        SQLiteStatement statement = db.compileStatement(sql);
+        statement.clearBindings();
+
+        statement.bindString(1, name);
+        statement.bindString(2, surname);
+        statement.bindBlob(3, photo);
+
+        statement.executeInsert();*/
+
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        // `id` and `timestamp` will be inserted automatically.
+        // no need to add them
+        values.put(User.COLUMN_NAME, name);
+        values.put(User.COLUMN_SURNAME, surname);
+        values.put(User.COLUMN_PHOTO, photo);
+
+        // insert row
+        long id = db.insert(User.TABLE_NAME, null, values);
+
+        // close db connection
+        db.close();
+
+        // return newly inserted row id
+        return id;
+
+
+
+    }
+
+
+    public Cursor getUser(String sql) {
+
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery(sql, null);
+
+    }
+
+
+    public void updateUser(String name, String surname, byte[] photo, int id){
+        SQLiteDatabase db = getWritableDatabase();
+
+        String sql = "UPDATE USER SET nom = ?, prenom = ?, photo = ? WHERE id = ?";
+        SQLiteStatement statement = db.compileStatement(sql);
+
+        statement.bindString(1, name);
+        statement.bindString(2, surname);
+        statement.bindBlob(3, photo);
+        statement.bindDouble(4, (double)id);
+
+        statement.execute();
+        db.close();
+
+    }
+
+    public  void deleteUser(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        String sql = "DELETE FROM USER WHERE id = ?";
+        SQLiteStatement statement = db.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindDouble(1, (double)id);
+
+        statement.execute();
+        db.close();
+    }
+
+
+
+
+
+
+
+
 }
